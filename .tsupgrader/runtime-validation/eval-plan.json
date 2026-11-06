@@ -1,0 +1,43 @@
+{
+  "projectType": "webapp",
+  "setup": [],
+  "assertions": [
+    {
+      "name": "frontend-lint",
+      "kind": "process",
+      "command": "/usr/bin/node",
+      "args": ["node_modules/eslint/bin/eslint.js", "."],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 60
+    },
+    {
+      "name": "frontend-build",
+      "kind": "process",
+      "command": "/usr/bin/node",
+      "args": ["node_modules/vite/bin/vite.js", "build"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "tests-pass",
+      "kind": "process",
+      "command": "/usr/bin/node",
+      "args": ["node_modules/vitest/vitest.mjs", "run"],
+      "verificationMethod": "test-results",
+      "expected": "0",
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "dev-server-serves-home",
+      "kind": "http-probe",
+      "startCommand": "/usr/bin/node",
+      "startArgs": ["node_modules/vite/bin/vite.js", "--host", "127.0.0.1", "--port", "5187", "--strictPort"],
+      "url": "http://127.0.0.1:5187/",
+      "verificationMethod": "http-status",
+      "expected": "200",
+      "timeoutSeconds": 30
+    }
+  ]
+}

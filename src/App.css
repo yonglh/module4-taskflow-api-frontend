@@ -1,0 +1,5 @@
+.app {
+  width: min(100%, 850px);
+  margin: 40px auto;
+  padding: 24px;
+}
