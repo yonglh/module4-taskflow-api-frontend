@@ -11,6 +11,12 @@ function TasksPage() {
   } = useTasks()
   const disabled = loading || !loaded || operation !== null
 
+  if (error?.message === 'Failed to connect to Render backend, it may have gone into sleep') {
+    throw new Error('Failed to connect to Render backend, it may have gone into sleep', {
+      cause: error,
+    })
+  }
+
   return (
     <>
       <header>
